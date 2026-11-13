@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Academy</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2e;--panel2:#18233c;--text:#edf2ff;--muted:#9aa8c7;--line:#283653;--accent:#f0db4f;--blue:#6ea8fe;--green:#55d6a3;--red:#ff7185}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0%,#1d2d50 0,transparent 32%),var(--bg);color:var(--text);font:16px/1.55 Inter,system-ui,Segoe UI,sans-serif}
+header{position:sticky;top:0;z-index:5;background:#0b1020eF;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.nav{max-width:1120px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{font-weight:900;letter-spacing:.5px;font-size:20px}.brand b{color:var(--accent)}nav{display:flex;gap:8px;flex-wrap:wrap}button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:10px 15px;font-weight:700;transition:.18s}button:hover{transform:translateY(-1px)}.navbtn{background:transparent;color:var(--muted)}.navbtn.active,.navbtn:hover{background:var(--panel2);color:var(--text)}
+main{max-width:1120px;margin:0 auto;padding:34px 22px 70px}.hero{padding:38px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(120deg,#182643,#111a2d 65%);position:relative;overflow:hidden}.hero:after{content:"JS";position:absolute;right:30px;top:-35px;font-size:190px;font-weight:1000;color:#f0db4f12;pointer-events:none}.eyebrow{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:2px;font-size:12px}.hero h1{font-size:clamp(32px,6vw,56px);line-height:1.08;margin:12px 0}.hero p{color:var(--muted);max-width:620px}.primary{background:var(--accent);color:#171717}.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.danger{background:#482433;color:#ffdce2}.stats{display:flex;gap:25px;flex-wrap:wrap;margin-top:25px;color:var(--muted)}.stats strong{display:block;color:var(--text);font-size:22px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:34px 0 16px}.section-head h2{margin:0;font-size:25px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:15px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}.level-card{display:flex;flex-direction:column;min-height:220px}.level-top{display:flex;justify-content:space-between;align-items:center}.level-num{width:38px;height:38px;border-radius:12px;background:#f0db4f1b;color:var(--accent);display:grid;place-items:center;font-weight:900}.tag{font-size:12px;color:var(--blue);background:#6ea8fe18;padding:5px 9px;border-radius:20px}.level-card h3{margin:15px 0 5px}.level-card p{color:var(--muted);font-size:14px;flex:1}.level-card button{width:100%}
+.hidden{display:none!important}.quiz{max-width:820px;margin:auto}.quizbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:15px}.progress{height:8px;background:#26334e;border-radius:20px;overflow:hidden;margin:12px 0 22px}.progress span{display:block;height:100%;background:var(--accent);width:0;transition:.2s}.question{font-size:22px;font-weight:800;margin:8px 0 20px;white-space:pre-wrap}.answers{display:grid;gap:10px}.answer{width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);color:var(--text);padding:15px;border-radius:13px}.answer.selected{border-color:var(--accent);background:#f0db4f17}.answer:disabled{cursor:default;opacity:1}.quiz-actions{display:flex;justify-content:space-between;gap:12px;margin-top:22px}.code{background:#080d19;border:1px solid var(--line);padding:14px;border-radius:12px;color:#b9d4ff;overflow:auto;font:14px/1.6 ui-monospace,monospace;margin:12px 0}
+.result-score{font-size:54px;font-weight:950;color:var(--accent)}.review-item{border-top:1px solid var(--line);padding:15px 0}.good{color:var(--green)}.bad{color:var(--red)}
+input{width:100%;padding:13px 14px;background:#0b1222;border:1px solid var(--line);border-radius:12px;color:var(--text);font:inherit;margin:8px 0 15px}.certificate{background:#fff;color:#18233c;padding:35px;border:10px double #c5a92e;text-align:center;max-width:760px;margin:20px auto;border-radius:8px}.certificate h2{font:700 34px Georgia,serif;color:#25385b}.certificate .cert-name{font:700 30px Georgia,serif;border-bottom:1px solid #b8a66a;display:inline-block;padding:8px 25px}.certificate small{color:#53627c}.certificate .seal{margin:20px auto;width:70px;height:70px;border-radius:50%;border:3px solid #c5a92e;display:grid;place-items:center;color:#a78619;font-size:25px}
+.empty{padding:30px;text-align:center;color:var(--muted)}footer{text-align:center;color:var(--muted);padding:25px;border-top:1px solid var(--line);font-size:13px}
+@media(max-width:600px){.hero{padding:25px}.hero:after{font-size:110px;right:5px;top:0}.nav{align-items:flex-start;flex-direction:column}.question{font-size:19px}.quiz-actions button{flex:1}}
+@media print{body{background:white;color:#111}.no-print,header,footer{display:none!important}main{padding:0}.certificate{display:block!important;margin:0 auto;max-width:100%;border:10px double #c5a92e}.certificate *{color:#18233c!important}}
+</style></head>
+<body>
+<header><div class="nav"><div class="brand">JS <b>ACADEMY</b></div><nav>
+<button class="navbtn active" data-page="home">Главная</button><button class="navbtn" data-page="levels">Уровни</button><button class="navbtn" data-page="results">Результаты</button><button class="navbtn" data-page="certs">Сертификаты</button>
+</nav></div></header>
+<main>
+<section id="home" class="page">
+<div class="hero"><div class="eyebrow">Interactive learning platform</div><h1>Освой JavaScript<br>уровень за уровнем.</h1><p>Проверь знания JavaScript на пяти уровнях сложности. Проходи тесты, изучай объяснения и получай сертификаты за свои результаты.</p><button class="primary" onclick="showPage('levels')">Выбрать уровень →</button><div class="stats"><div><strong>5</strong>уровней</div><div><strong>75</strong>вопросов</div><div><strong>80%</strong>для сертификата</div></div></div>
+<div class="section-head"><h2>Твоя программа</h2><span class="muted">От основ до продвинутых тем</span></div><div class="grid" id="homeLevels"></div>
+</section>
+<section id="levels" class="page hidden"><div class="section-head"><div><div class="eyebrow">Learning path</div><h2>Выбери уровень</h2></div><span class="muted">15 вопросов · 15 минут</span></div><div class="grid" id="levelGrid"></div></section>
+<section id="quiz" class="page hidden"><div class="quiz">
+<div class="quizbar"><button class="secondary" onclick="confirmExit()">← К уровням</button><span class="tag" id="quizLevel"></span><strong id="timer">15:00</strong></div>
+<div class="progress"><span id="progress"></span></div><div class="muted" id="questionCount"></div><div class="question" id="questionText"></div><div id="codeBox"></div><div class="answers" id="answers"></div>
+<div class="quiz-actions"><button class="secondary" id="prevBtn" onclick="move(-1)">Назад</button><button class="primary" id="nextBtn" onclick="move(1)">Далее →</button></div>
+</div></section>
+<section id="finish" class="page hidden"><div class="card" style="max-width:820px;margin:auto"><div class="eyebrow">Test completed</div><h2 id="finishTitle">Результат</h2><div class="result-score" id="scoreText"></div><p id="finishMessage" class="muted"></p><div class="quiz-actions"><button class="secondary" onclick="showPage('levels')">Другой уровень</button><button class="primary" id="certButton" onclick="makeCertificate()">Получить сертификат</button></div><h3>Разбор ответов</h3><div id="review"></div></div></section>
+<section id="results" class="page hidden"><div class="section-head"><h2>История результатов</h2><button class="danger" onclick="clearResults()">Очистить историю</button></div><div id="resultsList" class="card"></div></section>
+<section id="certs" class="page hidden"><div class="section-head"><h2>Мои сертификаты</h2></div><div id="certList" class="grid"></div></section>
+<section id="certificatePage" class="page hidden"><div class="no-print" style="text-align:center"><button class="secondary" onclick="showPage('certs')">← Назад</button> <button class="primary" onclick="window.print()">Печать / Сохранить PDF</button></div><div id="certificateArea"></div></section>
+</main><footer>JS ACADEMY · Учись. Практикуйся. Расти.</footer>
+<script>
+const levels=[
+{name:"Beginner",ru:"Начальный",desc:"Переменные, типы данных, операторы и базовый синтаксис.",topics:"let · const · types · operators"},
+{name:"Elementary",ru:"Базовый",desc:"Условия, циклы, массивы и простая логика программ.",topics:"if · loops · arrays · strings"},
+{name:"Intermediate",ru:"Средний",desc:"Функции, объекты, методы массивов и область видимости.",topics:"functions · objects · scope · methods"},
+{name:"Advanced",ru:"Продвинутый",desc:"Замыкания, this, классы, Promise и асинхронный код.",topics:"closures · this · classes · async"},
+{name:"Expert",ru:"Экспертный",desc:"Event Loop, прототипы, дескрипторы и тонкости JavaScript.",topics:"event loop · prototypes · descriptors"}
+];
+const Q=(q,opts,a,why,code="")=>({q,opts,a,why,code});
+const bank=[
+[
+Q("Какое ключевое слово объявляет переменную, значение которой можно переназначить?",["const","let","static","define"],1,"let объявляет переменную с блочной областью видимости, значение которой можно менять."),
+Q("Какой тип данных у значения null?",["null","undefined","object","boolean"],2,"Исторически typeof null возвращает 'object'. Это известная особенность JavaScript."),
+Q("Что выведет выражение typeof 42?",["number","integer","Number","numeric"],0,"Числа в JavaScript имеют тип number."),
+Q("Какой оператор проверяет строгое равенство без приведения типов?",["==","=","===","!="],2,"Оператор === сравнивает и значение, и тип."),
+Q("Что выведет Boolean(0)?",["true","false","0","undefined"],1,"Ноль — falsy-значение."),
+Q("Как правильно объявить константу?",["var x = 5;","let x = 5;","const x = 5;","constant x = 5;"],2,"Для константы используется const; повторное присваивание запрещено."),
+Q("Какой результат у выражения  '5' + 2 ?",["7","52","NaN","ошибка"],1,"Если один из операндов строки, + выполняет конкатенацию."),
+Q("Какой результат у выражения  '5' - 2 ?",["52","3","NaN","ошибка"],1,"Минус приводит строку '5' к числу."),
+Q("Какой символ используется для однострочного комментария?",["#","//","<!--","**"],1,"Однострочный комментарий начинается с //."),
+Q("Что вернёт typeof true?",["truthy","bool","boolean","Boolean"],2,"typeof логического значения возвращает строку 'boolean'."),
+Q("Какой метод преобразует JSON-строку в объект?",["JSON.stringify()","JSON.parse()","Object.create()","String()"],1,"JSON.parse() разбирает JSON-текст."),
+Q("Что выведет 10 % 3?",["3","1","0","0.3"],1,"Оператор % возвращает остаток от деления."),
+Q("Какой тип у 10n?",["number","bigint","int","object"],1,"Целые числа с суффиксом n имеют тип bigint."),
+Q("Что делает оператор ++?",["Уменьшает на 1","Увеличивает на 1","Возводит в степень","Сравнивает"],1,"Инкремент увеличивает значение на единицу."),
+Q("Что вернёт typeof undefined?",["null","undefined","object","string"],1,"Для undefined оператор typeof возвращает строку 'undefined'.")
+],
+[
+Q("Что выведет код?",["yes","no","undefined","ошибка"],0,"Условие истинно, поэтому выполнится первая ветка.","let x = 7;\nif (x > 5) console.log('yes');\nelse console.log('no');"),
+Q("Сколько раз выполнится цикл?",["4","5","6","Бесконечно"],1,"i принимает значения 0, 1, 2, 3, 4 — всего пять итераций.","for (let i = 0; i < 5; i++) {\n  console.log(i);\n}"),
+Q("Какой метод добавляет элемент в конец массива?",["push()","pop()","shift()","unshift()"],0,"push добавляет один или несколько элементов в конец массива."),
+Q("Что вернёт [1,2,3].length?",["2","3","4","undefined"],1,"length — количество элементов массива."),
+Q("Как проверить, что x не равен 10 по значению или типу?",["x != 10","x !== 10","x <> 10","not x == 10"],1,"!== — строгое неравенство."),
+Q("Что выведет код?",["1","2","3","ошибка"],1,"break завершает цикл при i равном 2, поэтому последнее выведенное значение — 1.","for (let i=0; i<4; i++) {\n if (i===2) break;\n console.log(i);\n}"),
+Q("Какой метод удаляет последний элемент массива и возвращает его?",["push","pop","slice","splice"],1,"pop изменяет исходный массив и возвращает удалённый последний элемент."),
+Q("Что вернёт 'JavaScript'.includes('Script')?",["false","true","undefined","ошибка"],1,"includes проверяет наличие подстроки."),
+Q("Какой цикл гарантированно выполняется хотя бы один раз?",["for","while","do...while","for...of"],2,"Условие do...while проверяется после выполнения тела."),
+Q("Что выведет Boolean('')?",["true","false","пустую строку","NaN"],1,"Пустая строка — falsy."),
+Q("Как получить каждый элемент массива без индекса?",["for...in","for...of","while...in","each...of"],1,"for...of перебирает значения итерируемого объекта."),
+Q("Что делает continue в цикле?",["Завершает программу","Пропускает текущую итерацию","Останавливает цикл навсегда","Перезапускает страницу"],1,"continue переходит к следующей итерации."),
+Q("Какой результат у [1,2,3].slice(1)?",["[1,2]","[2,3]","[1,2,3]","[3]"],1,"slice(1) возвращает копию от индекса 1 до конца."),
+Q("Что выведет код?",["true","false","1","ошибка"],0,"Оператор && возвращает первый falsy-операнд или последний операнд; оба условия истинны.","console.log(5 > 2 && 3 < 4);"),
+Q("Как превратить строку '123' в число?",["parseInt('123')","toString('123')","String(123)","Boolean('123')"],0,"parseInt преобразует строку в целое число; также можно использовать Number().")
+],
+[
+Q("Что вернёт функция, если в ней нет return?",["0","null","undefined","false"],2,"Без явного return функция возвращает undefined."),
+Q("Что такое параметр функции?",["Результат функции","Переменная в объявлении функции","Только число","Имя файла"],1,"Параметры перечисляются в объявлении функции; аргументы передаются при вызове."),
+Q("Что выведет код?",["10","5","undefined","ошибка"],0,"Внутренняя функция имеет доступ к переменной внешней функции — замыкание.","function outer(){\n let x=10;\n return function(){ return x; };\n}\nconsole.log(outer()());"),
+Q("Какой метод создаёт новый массив, преобразуя каждый элемент?",["filter","map","forEach","find"],1,"map возвращает новый массив результатов вызова callback для каждого элемента."),
+Q("Что возвращает filter()?",["Первый элемент","Новый массив подходящих элементов","Всегда boolean","Исходный массив без изменений"],1,"filter создаёт новый массив из элементов, прошедших проверку."),
+Q("Что означает this в методе обычного объекта при вызове obj.method()?",["Всегда window","Объект перед точкой вызова","Всегда null","Функцию-конструктор"],1,"При таком вызове this обычно указывает на obj."),
+Q("Как проверить, является ли значение массивом?",["typeof x === 'array'","x.isArray()","Array.isArray(x)","x instanceof Object только"],2,"Array.isArray — надёжная встроенная проверка массива."),
+Q("Что делает Object.keys(obj)?",["Возвращает значения","Возвращает массив собственных перечисляемых ключей","Удаляет ключи","Копирует объект глубоко"],1,"Object.keys возвращает массив строковых имён собственных перечисляемых свойств."),
+Q("Что выведет код?",["[2,4,6]","[1,2,3]","[3,6,9]","undefined"],0,"map умножает каждый элемент на 2.","[1,2,3].map(n => n * 2);"),
+Q("Какой способ задаёт значение параметра по умолчанию?",["function f(x := 3)","function f(x = 3)","function f(default x:3)","function f(x ?? 3)"],1,"В параметрах функции можно использовать синтаксис x = 3."),
+Q("Что делает reduce()?",["Сортирует массив","Сводит элементы к одному результату через аккумулятор","Удаляет дубликаты автоматически","Создаёт объект всегда"],1,"reduce последовательно накапливает результат callback."),
+Q("Чем стрелочная функция отличается в отношении this?",["Создаёт собственный this","Не имеет собственного this","Всегда привязывает this к window","Запрещает return"],1,"Стрелочная функция использует this из окружающего лексического контекста."),
+Q("Что выведет код?",["true","false","undefined","ошибка"],1,"Объекты сравниваются по ссылке, а не по структуре.","console.log({a:1} === {a:1});"),
+Q("Как создать объект с заданным прототипом?",["Object.create(proto)","new Object(proto) всегда","Object.prototype(proto)","Array.from(proto)"],0,"Object.create создаёт объект с указанным прототипом."),
+Q("Что делает оператор ... в литерале массива [ ...arr ]?",["Удаляет элементы","Разворачивает итерируемые элементы","Сравнивает массивы","Замораживает массив"],1,"Spread-синтаксис разворачивает элементы массива.")
+],
+[
+Q("Что такое замыкание (closure)?",["Функция без имени","Функция вместе с доступом к лексическому окружению","Асинхронный цикл","Метод массива"],1,"Замыкание сохраняет доступ к переменным внешней области видимости после её выполнения."),
+Q("Что выведет код?",["1","2","3","undefined"],1,"let создаёт отдельное лексическое связывание для каждой итерации цикла.","for(let i=0;i<3;i++){ setTimeout(()=>console.log(i),0); }"),
+Q("Какое состояние Promise означает успешное завершение?",["pending","fulfilled","rejected","resolved-only"],1,"У Promise есть состояния pending, fulfilled и rejected."),
+Q("Что возвращает async-функция всегда?",["Обычное значение","Promise","Generator","Callback"],1,"Любая async-функция возвращает Promise."),
+Q("Для чего нужен await?",["Останавливает весь браузер","Ожидает завершения Promise внутри async-функции","Создаёт новый поток","Отменяет Promise"],1,"await приостанавливает выполнение соответствующей async-функции до settlement Promise."),
+Q("Что выведет код?",["A затем B","B затем A","Только A","Только B"],1,"Синхронный console.log выполняется раньше обработчика then.","Promise.resolve().then(()=>console.log('A'));\nconsole.log('B');"),
+Q("Что делает метод bind()?",["Немедленно вызывает функцию","Создаёт функцию с привязанным this","Удаляет this","Превращает функцию в Promise"],1,"bind возвращает новую функцию с заданным this и, при необходимости, аргументами."),
+Q("Как объявить класс в JavaScript?",["class User {}","define User {}","object User {}","new class User"],0,"Классы объявляются ключевым словом class."),
+Q("Что такое static-метод класса?",["Метод экземпляра","Метод, вызываемый на самом классе","Приватное поле","Асинхронный метод"],1,"Статический метод принадлежит классу, а не его экземплярам."),
+Q("Что делает Promise.all([...]) при отклонении одного Promise?",["Игнорирует ошибку","Отклоняется с этой ошибкой","Всегда ждёт все и возвращает массив","Повторяет запрос"],1,"Promise.all отклоняется при первом отклонённом входящем Promise."),
+Q("Какой синтаксис перехватывает ошибку async/await?",["if/else","try/catch","switch/case","for/catch"],1,"Ошибки await можно обрабатывать блоком try/catch."),
+Q("Что такое debounce?",["Запуск функции через равные интервалы","Откладывание вызова до паузы в потоке событий","Ускорение цикла","Отмена всех Promise"],1,"Debounce запускает функцию после того, как события прекратились на заданное время."),
+Q("Что делает оператор ?. ?",["Проверяет тип","Безопасно обращается к свойству при null/undefined","Удаляет свойство","Создаёт Promise"],1,"Optional chaining прекращает цепочку и возвращает undefined, если база null или undefined."),
+Q("Что выведет код?",["5","undefined","ошибка","null"],0,"Метод call вызывает функцию с указанным this и аргументами.","function f(){return this.x}\nconsole.log(f.call({x:5}));"),
+Q("Что делает finally() у Promise?",["Выполняется только при успехе","Выполняется после завершения независимо от результата","Повторяет запрос","Преобразует reject в resolve"],1,"finally выполняется после fulfilled или rejected и обычно не получает результат.")
+],
+[
+Q("Какой порядок вывода?",["sync, promise, timeout","promise, sync, timeout","timeout, sync, promise","sync, timeout, promise"],0,"Сначала выполняется синхронный код, затем microtask из then, затем task таймера.","console.log('sync');\nsetTimeout(()=>console.log('timeout'),0);\nPromise.resolve().then(()=>console.log('promise'));"),
+Q("Что такое прототипное наследование?",["Копирование исходного кода","Поиск свойств по цепочке прототипов","Наследование только через class","Наследование CSS"],1,"Если свойства нет у объекта, движок ищет его в прототипе и далее по цепочке."),
+Q("Что возвращает Object.getPrototypeOf(obj)?",["Список ключей","Прототип объекта","Конструктор в виде строки","Копию объекта"],1,"Метод возвращает внутренний прототип указанного объекта."),
+Q("Какое утверждение о microtask верно?",["setTimeout callback обычно microtask","Promise.then callback ставится в очередь microtask","Microtask всегда выполняются после следующего таймера","Они выполняются параллельно"],1,"Обработчики Promise относятся к очереди microtask."),
+Q("Что делает Object.freeze(obj)?",["Глубоко замораживает всё дерево","Запрещает изменение собственных свойств верхнего объекта","Удаляет прототип","Делает объект строкой"],1,"freeze поверхностный: вложенные объекты автоматически не замораживаются."),
+Q("Что такое дескриптор свойства?",["Описание атрибутов свойства","Тип переменной","Ссылка на DOM","Обработчик Promise"],0,"Дескриптор задаёт value/writable или get/set, а также enumerable и configurable."),
+Q("Какое значение имеет writable:false?",["Свойство нельзя удалить","Нельзя обычным присваиванием изменить value","Свойство скрыто в цикле","Нельзя прочитать"],1,"writable определяет, можно ли менять значение data-свойства присваиванием."),
+Q("Что выведет код?",["1","2","undefined","ошибка"],0,"Функция, вызванная через new, создаёт объект и возвращает его, если явно не возвращает другой объект.","function A(){this.x=1; return 2}\nconsole.log(new A().x);"),
+Q("Какой метод создаёт новый Promise, который завершится после первого завершившегося входящего Promise?",["Promise.all","Promise.race","Promise.allSettled","Promise.any"],1,"Promise.race завершится по первому settled Promise — fulfilled или rejected."),
+Q("Чем Promise.any отличается от Promise.race?",["Ничем","any ждёт первый fulfilled; race — первый settled","any всегда возвращает массив","race игнорирует reject"],1,"Promise.any игнорирует отклонения, пока не найдёт fulfilled; если все отклонены, выдаёт AggregateError."),
+Q("Что такое TDZ?",["Тип данных","Временная мёртвая зона до инициализации let/const","Очередь событий","Метод объекта"],1,"Temporal Dead Zone — период от входа в область видимости до объявления/инициализации let или const."),
+Q("Какой результат у typeof NaN?",["NaN","undefined","number","object"],2,"Несмотря на название Not-a-Number, тип NaN — number."),
+Q("Что делает Symbol.for('x')?",["Всегда создаёт новый уникальный Symbol","Ищет или создаёт Symbol в глобальном реестре","Создаёт строку","Создаёт свойство x"],1,"Symbol.for использует общий глобальный реестр символов."),
+Q("Что такое WeakMap?",["Map с любыми ключами","Коллекция, где ключи — объекты и удерживаются слабо","Неизменяемый объект","Массив пар"],1,"WeakMap принимает объектные ключи и не препятствует сборке мусора этих ключей."),
+Q("Что выведет код?",["1 2","2 1","1 1","ошибка"],0,"Свойство x сначала равно 1, затем присваивание меняет его на 2.","const o={x:1};\nconst p=o;\np.x=2;\nconsole.log(o.x,p.x);")
+]
+];
+let currentLevel=0,idx=0,answers=[],seconds=900,timerId=null,lastResult=null;
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===id));if(id==='results')renderResults();if(id==='certs')renderCerts();window.scrollTo(0,0)}
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function cards(){return levels.map((l,i)=>`<div class="card level-card"><div class="level-top"><span class="level-num">${i+1}</span><span class="tag">${l.ru}</span></div><h3>${l.name}</h3><p>${l.desc}<br><br><small>${l.topics}</small></p><button class="primary" onclick="startTest(${i})">Начать тест →</button></div>`).join('')}
+document.getElementById('levelGrid').innerHTML=cards();document.getElementById('homeLevels').innerHTML=cards();
+function startTest(n){currentLevel=n;idx=0;answers=Array(15).fill(null);seconds=900;showPage('quiz');document.getElementById('quizLevel').textContent=levels[n].name;renderQuestion();clearInterval(timerId);timerId=setInterval(()=>{seconds--;document.getElementById('timer').textContent=fmt(seconds);if(seconds<=0)finishTest()},1000)}
+function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function renderQuestion(){let q=bank[currentLevel][idx];document.getElementById('questionCount').textContent=`Вопрос ${idx+1} из 15`;document.getElementById('progress').style.width=((idx+1)/15*100)+'%';document.getElementById('questionText').textContent=q.q;document.getElementById('codeBox').innerHTML=q.code?`<pre class="code"></pre>`:'';if(q.code)document.querySelector('#codeBox pre').textContent=q.code;document.getElementById('answers').innerHTML=q.opts.map((o,i)=>`<button class="answer ${answers[idx]===i?'selected':''}" onclick="choose(${i})">${String.fromCharCode(65+i)}. ${escapeHtml(o)}</button>`).join('');document.getElementById('prevBtn').disabled=idx===0;document.getElementById('nextBtn').textContent=idx===14?'Завершить тест':'Далее →';document.getElementById('timer').textContent=fmt(seconds)}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function choose(i){answers[idx]=i;renderQuestion()}
+function move(d){if(d===1&&idx===14){finishTest();return}idx=Math.max(0,Math.min(14,idx+d));renderQuestion()}
+function confirmExit(){if(confirm('Выйти из теста? Текущий прогресс не сохранится.')){clearInterval(timerId);showPage('levels')}}
+function finishTest(){clearInterval(timerId);let qs=bank[currentLevel],score=qs.reduce((s,q,i)=>s+(answers[i]===q.a?1:0),0),pct=Math.round(score/15*100);lastResult={level:currentLevel,score,pct,date:new Date().toLocaleDateString('ru-RU'),answers:[...answers]};let history=JSON.parse(localStorage.getItem('jsa_results')||'[]');history.unshift(lastResult);localStorage.setItem('jsa_results',JSON.stringify(history.slice(0,50)));document.getElementById('finishTitle').textContent=levels[currentLevel].name+' — результат';document.getElementById('scoreText').textContent=`${score} / 15 · ${pct}%`;document.getElementById('finishMessage').textContent=pct>=80?'Отличная работа! Ты набрал проходной балл и можешь получить сертификат.': 'Для сертификата нужно набрать не менее 80%. Изучи разбор и попробуй ещё раз.';document.getElementById('certButton').classList.toggle('hidden',pct<80);document.getElementById('review').innerHTML=qs.map((q,i)=>`<div class="review-item"><b>${i+1}. ${escapeHtml(q.q)}</b><p class="${answers[i]===q.a?'good':'bad'}">Твой ответ: ${answers[i]===null?'Не отвечено':escapeHtml(q.opts[answers[i]])} · Правильный: ${escapeHtml(q.opts[q.a])}</p><div class="muted">${escapeHtml(q.why)}</div>${q.code?`<pre class="code">${escapeHtml(q.code)}</pre>`:''}</div>`).join('');showPage('finish')}
+function makeCertificate(){let name=prompt('Введите имя и фамилию для сертификата:');if(!name||!name.trim())return;let cert={name:name.trim(),level:levels[lastResult.level].name,score:lastResult.score,pct:lastResult.pct,date:lastResult.date,id:'JSA-'+Date.now().toString().slice(-7)};let all=JSON.parse(localStorage.getItem('jsa_certs')||'[]');all.unshift(cert);localStorage.setItem('jsa_certs',JSON.stringify(all));displayCertificate(cert);showPage('certificatePage')}
+function displayCertificate(c){document.getElementById('certificateArea').innerHTML=`<div class="certificate"><small>JAVASCRIPT ACADEMY · CERTIFICATE OF ACHIEVEMENT</small><h2>СЕРТИФИКАТ</h2><p>Настоящим подтверждается, что</p><div class="cert-name">${escapeHtml(c.name)}</div><p>успешно прошёл(ла) тестирование по JavaScript</p><h2>${escapeHtml(c.level)}</h2><p>Результат: <b>${c.score} из 15 (${c.pct}%)</b></p><div class="seal">JS</div><p>Дата: ${c.date}</p><small>Сертификат ${c.id}</small><p><small>Учебный сертификат платформы JavaScript Academy. Не является государственной или профессиональной аккредитацией.</small></p></div>`}
+function renderResults(){let h=JSON.parse(localStorage.getItem('jsa_results')||'[]');document.getElementById('resultsList').innerHTML=h.length?h.map(r=>`<div class="review-item"><b>${levels[r.level].name}</b> <span class="muted">· ${r.date}</span><p>${r.score}/15 — ${r.pct}% ${r.pct>=80?'<span class="good">Сдано</span>':'<span class="bad">Нужно повторить</span>'}</p></div>`).join(''):'<div class="empty">Пока нет результатов. Пройди первый тест!</div>'}
+function renderCerts(){let c=JSON.parse(localStorage.getItem('jsa_certs')||'[]');document.getElementById('certList').innerHTML=c.length?c.map((x,i)=>`<div class="card"><span class="tag">${escapeHtml(x.level)}</span><h3>${escapeHtml(x.name)}</h3><p class="muted">${x.pct}% · ${x.date}</p><button class="secondary" onclick="openCert(${i})">Открыть сертификат</button></div>`).join(''):'<div class="empty">Сертификатов пока нет. Для получения нужно набрать минимум 80%.</div>'}
+function openCert(i){let c=JSON.parse(localStorage.getItem('jsa_certs')||'[]')[i];displayCertificate(c);showPage('certificatePage')}
+function clearResults(){if(confirm('Удалить всю историю тестов?')){localStorage.removeItem('jsa_results');renderResults()}}
+</script></body></html>
